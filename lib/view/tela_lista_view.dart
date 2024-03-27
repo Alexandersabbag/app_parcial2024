@@ -2,16 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_parcial/model/lista.dart';
+
+import '../model/lista.dart';
+
 
 class ListaView extends StatefulWidget {
   const ListaView({super.key});
-
   @override
   State<ListaView> createState() => _ListaViewState();
 }
 
 class _ListaViewState extends State<ListaView> {
+  
+  @override
+  void initState() {
+    index = -1;
+    super.initState();
+  }
+
+  
   List<Tarefas> lista = [];
   var index;
   var txtTitulo = TextEditingController();
@@ -19,26 +28,6 @@ class _ListaViewState extends State<ListaView> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Padding(
-          padding: EdgeInsets.all(1),
-          child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF6495ED),
-                    fixedSize: Size(200, 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13))),
-                onPressed: () {
-                  showDialog(context: context, builder: (context) => Dialog(
-                    child: adicionarContato(),
-                    
-                  ));
-                },
-                child: Text(
-                  'Adicionar Tarefa',
-                  style: TextStyle(color: Colors.white),
-                )),
-        ),
         appBar: AppBar(
           title: Text(
             'Lista de Tarefas',
@@ -47,12 +36,27 @@ class _ListaViewState extends State<ListaView> {
           centerTitle: true,
           backgroundColor: Color(0xFF6495ED),
         ),
-        body: null
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: adicionarTarefa(),
+          ),
+          Expanded(
+            flex: 2,
+            child: listarTarefa(),
+          ),
+        ],
+      ),
+
       );
   }
-  adicionarContato() {
+
+  //função add tarefa
+  adicionarTarefa() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -114,5 +118,39 @@ class _ListaViewState extends State<ListaView> {
       ),
     );
   }
+
+  //função listar tarefa
+  listarTarefa() {
+    return Container(
+      padding: const EdgeInsets.all(20.0),
+      child: ListView.builder(
+        itemCount: lista.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              title: Text(lista[index].titulo),
+              subtitle: Text(lista[index].descricao),
+              trailing: IconButton(
+                icon: Icon(Icons.delete_outline),
+                onPressed: () {
+                  setState(() {
+                    lista.removeAt(index);
+                  });
+                },
+              ),
+              onTap: () {
+                setState(() {
+                  this.index = index;
+                  txtTitulo.text = lista[index].titulo;
+                  txtDescricao.text = lista[index].descricao;
+                });
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+
 
 }

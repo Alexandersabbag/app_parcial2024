@@ -2,10 +2,10 @@
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_parcial/view/tela_lista_view.dart';
-import 'package:flutter_parcial/view/tela_view_sobre.dart';
 import 'view/tela_cadastro_view.dart';
+import 'view/tela_lista_view.dart';
 import 'view/tela_login_view.dart';
+import 'view/tela_view_sobre.dart';
 
 
 void main() {
@@ -29,7 +29,7 @@ class _PrincipalViewState extends State<PrincipalView> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'lista',
+      initialRoute: 'sobre',
       routes: {
         'cadastrar': (context) => CadastroView(),
         'login': (context) => LoginView(),
