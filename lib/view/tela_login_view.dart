@@ -124,7 +124,24 @@ class _LoginViewState extends State<LoginView> {
                     decorationColor: Colors.blue,
                     color: Colors.white),
               ),
-            )
+            ),
+            SizedBox(height:15),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF6495ED),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7))),
+              onPressed: () {
+                Navigator.pushNamed(context, 'sobre');
+              },
+              child: Text(
+                'Sobre',
+                style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.blue,
+                    color: Colors.white),
+              ),
+            ),
           ]),
         ),
       ),

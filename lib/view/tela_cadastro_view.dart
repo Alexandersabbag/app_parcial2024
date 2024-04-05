@@ -64,7 +64,14 @@ class _CadastroViewState extends State<CadastroView> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(13))),
                 onPressed: () {
-                  usuario.add(Cadastro(txtNome.text ,txtEmail.text ,txtSenha.text));
+                  setState(() {
+                    if(txtNome.text.isNotEmpty && txtNome.text.isNotEmpty && txtSenha.text.isNotEmpty){
+                    usuario.add(Cadastro(txtNome.text ,txtEmail.text ,txtSenha.text));
+                    Navigator.pushNamed(context, 'lista');
+                  }else{
+                    mensagem("Preencha todos os campos");
+                  }
+                  },);
                 },
                 child: Text(
                   'Ok',
@@ -91,6 +98,17 @@ class _CadastroViewState extends State<CadastroView> {
             ),
           ]),
         ]),
+      ),
+    );
+  }
+
+  //mensagem para o rodapé 
+  mensagem(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg, style: TextStyle(fontSize: 20),),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.red,
       ),
     );
   }

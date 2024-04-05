@@ -29,7 +29,7 @@ class _PrincipalViewState extends State<PrincipalView> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'sobre',
+      initialRoute: 'login',
       routes: {
         'cadastrar': (context) => CadastroView(),
         'login': (context) => LoginView(),

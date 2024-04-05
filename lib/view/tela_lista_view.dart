@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
 import '../model/lista.dart';
 
 
@@ -66,7 +65,7 @@ class _ListaViewState extends State<ListaView> {
             decoration: InputDecoration(
               labelText: 'Título',
               labelStyle: TextStyle(fontSize: 18),
-              icon: Icon(Icons.person),
+              icon: Icon(Icons.title),
             ),
           ),
           SizedBox(
@@ -78,7 +77,7 @@ class _ListaViewState extends State<ListaView> {
             decoration: InputDecoration(
               labelText: 'Descreva a tarefa',
               labelStyle: TextStyle(fontSize: 18),
-              icon: Icon(Icons.smartphone),
+              icon: Icon(Icons.description),
             ),
           ),
           SizedBox(
@@ -106,7 +105,7 @@ class _ListaViewState extends State<ListaView> {
                       txtDescricao.clear();
                       index = -1;
                     } else {
-                      //'Os campos nome e telefone precisam ser preenchidos.'
+                      mensagem('Preencha todos os campos');
                     }
                   });
                 },
@@ -121,7 +120,8 @@ class _ListaViewState extends State<ListaView> {
 
   //função listar tarefa
   listarTarefa() {
-    return Container(
+    return 
+    Container(
       padding: const EdgeInsets.all(20.0),
       child: ListView.builder(
         itemCount: lista.length,
@@ -130,6 +130,13 @@ class _ListaViewState extends State<ListaView> {
             child: ListTile(
               title: Text(lista[index].titulo),
               subtitle: Text(lista[index].descricao),
+              leading: Checkbox(
+                value: lista[index].isChecked, 
+                onChanged: (value) {
+                  setState(() {
+                    lista[index].isChecked = value;
+                  });
+                },),
               trailing: IconButton(
                 icon: Icon(Icons.delete_outline),
                 onPressed: () {
@@ -152,5 +159,14 @@ class _ListaViewState extends State<ListaView> {
     );
   }
 
-
+  //mensagem para o rodapé 
+  mensagem(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg, style: TextStyle(fontSize: 20),),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
 }
